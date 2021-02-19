@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Project0.Core
+namespace Project0
 {
     public class Startup
     {
