@@ -2,6 +2,7 @@
 CREATE SCHEMA Project0
 GO
 
+
 /*******************************************************************************
    Create Tables
 ********************************************************************************/
@@ -30,14 +31,13 @@ CREATE TABLE Project0.Product (
 
 CREATE TABLE Project0.Location (
     LocationId INT NOT NULL IDENTITY UNIQUE,
-    Name NVARCHAR(100) NOT NULL,
+    StoreNumber INT NOT NULL,
     Address NVARCHAR(70),
     City NVARCHAR(40),
     State NVARCHAR(40),
     Country NVARCHAR(40),
     PostalCode NVARCHAR(10),
     Phone NVARCHAR(24) NOT NULL,
-    Email NVARCHAR(60) NOT NULL,
     CONSTRAINT PK_Location PRIMARY KEY (LocationId)
 )
 
@@ -88,17 +88,19 @@ CREATE TABLE Project0.InventoryLine (
    Populate Tables
 ********************************************************************************/
 
+
+
 INSERT INTO Project0.Customer (FirstName, LastName, Address, City, State, Country, PostalCode, Phone, Email) VALUES
     ('Lauren', 'Lister', '101 Alpha Way',    'Fantasy Heights', NULL, 'Hypothetican Republic', NULL, NULL, 'llister@emailhost.net'),
-    ('Kaiser', 'Avalos', '258 Omega Blvd.',  'Fantasy Heights', NULL, 'Hypothetican Republic', NULL, NULL, 'kavalos@emailhost.net'),
-    ('Rianne', 'Fry',    '741 Tango Ave.',   'Fantasy Heights', NULL, 'Hypothetican Republic', NULL, NULL, 'rfry@emailhost.net'),
-    ('Isaac', 'Bailey',  '121 Alpha Way',    'Fantasy Heights', NULL, 'Hypothetican Republic', NULL, NULL, 'ibailey@emailhost.net'),
+    ('Kaiser', 'Avalos', '258 Omega Blvd.',  'Mythopolis',      NULL, 'Hypothetican Republic', NULL, NULL, 'kavalos@emailhost.net'),
+    ('Rianne', 'Fry',    '741 Tango Ave.',   'New Simula',      NULL, 'Hypothetican Republic', NULL, NULL, 'rfry@emailhost.net'),
+    ('Isaac', 'Bailey',  '121 Alpha Way',    'New Simula',      NULL, 'Hypothetican Republic', NULL, NULL, 'ibailey@emailhost.net'),
     ('Enzo', 'Drew',     '369 Delta Dr.',    'Fantasy Heights', NULL, 'Hypothetican Republic', NULL, NULL, 'edrew@emailhost.net');
 
-INSERT INTO Project0.Location (Name, Address, City, State, Country, PostalCode, Phone, Email) VALUES
-    ('Hank`s Hardware',   '123 4th Street', 'Fantasy Heights', NULL, 'Hypothetican Republic', NULL, '202-555-0128', 'hanks.hardware@emailhost.net'),
-    ('Golly G Grocery',  '531 2nd Street', 'Fantasy Heights', NULL, 'Hypothetican Republic', NULL, '202-555-0137', 'gggrocery@emailhost.net'),
-    ('Del Ideli Deli',   '529 2nd Street', 'Fantasy Heights', NULL, 'Hypothetican Republic', NULL, '202-555-0165', 'delidelideli@emailhost.net');
+INSERT INTO Project0.Location (StoreNumber, Address, City, State, Country, PostalCode, Phone) VALUES
+    (1,   '123 1st Street', 'Mythopolis',       NULL, 'Hypothetican Republic', NULL, '202-555-0128'),
+    (23,  '531 2nd Street', 'New Simula',       NULL, 'Hypothetican Republic', NULL, '202-555-0137'),
+    (157, '529 2nd Street', 'Fantasy Heights',  NULL, 'Hypothetican Republic', NULL, '202-555-0165');
 
 INSERT INTO Project0.Product (Name, BestBy, UnitPrice) VALUES
     ('Hammer', NULL, 9.99),
@@ -120,9 +122,27 @@ INSERT INTO Project0.InventoryLine (InventoryId, ProductId, Quantity, LineTotal)
     (1, 1, 30, 299.70),
     (1, 2, 100, 249.00),
     (1, 3, 15, 749.85),
+    (1, 4, 30, 104.70),
+    (1, 5, 30, 59.70),
+    (1, 6, 30, 119.70),
+    (1, 7, 50, 149.50),
+    (1, 8, 25, 62.25),
+    (1, 9, 15, 299.85),
+    (2, 1, 30, 299.70),
+    (2, 2, 100, 249.00),
+    (2, 3, 15, 749.85),
     (2, 4, 30, 104.70),
     (2, 5, 30, 59.70),
     (2, 6, 30, 119.70),
+    (2, 7, 50, 149.50),
+    (2, 8, 25, 62.25),
+    (2, 9, 15, 299.85),
+    (3, 1, 30, 299.70),
+    (3, 2, 100, 249.00),
+    (3, 3, 15, 749.85),
+    (3, 4, 30, 104.70),
+    (3, 5, 30, 59.70),
+    (3, 6, 30, 119.70),
     (3, 7, 50, 149.50),
     (3, 8, 25, 62.25),
     (3, 9, 15, 299.85);

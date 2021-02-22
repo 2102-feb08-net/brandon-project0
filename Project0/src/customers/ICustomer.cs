@@ -1,18 +1,25 @@
 
-
+using System;
+using System.Collections.Generic;
+using Project0.Orders;
 
 namespace Project0.Customers
 {
     public interface ICustomer
     {
-        int ID { get; }
-
-        string FirstName { get; set; }
-        string LastName { get; set; } 
+        int CustomerId { get; }
+        string FirstName { get; }
+        string LastName { get; }
+        string Address { get; }
+        string City { get; }
+        string State { get; }
+        string Country { get; }
+        string PostalCode { get; }
         string Phone { get; set; }
-        string Address1 { get; set; }
-        string Address2 { get; set; }
-        string City { get; set; }
-        string State { get; set; }
+        string Email { get; set; }
+
+        List<IOrder> GetOrderHistory();
+
+        void SetFullAddress(string address, string city, string country, string state = "", string postalcode = "");
     }
 }

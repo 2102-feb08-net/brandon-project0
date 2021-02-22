@@ -33,7 +33,7 @@ namespace Project0.Data
             {
                 entity.ToTable("Customer", "Project0");
 
-                entity.HasIndex(e => e.CustomerId, "UQ__Customer__A4AE64D9A734BD8E")
+                entity.HasIndex(e => e.CustomerId, "UQ__Customer__A4AE64D9DECC0EBE")
                     .IsUnique();
 
                 entity.Property(e => e.Address).HasMaxLength(70);
@@ -65,7 +65,7 @@ namespace Project0.Data
             {
                 entity.ToTable("Inventory", "Project0");
 
-                entity.HasIndex(e => e.InventoryId, "UQ__Inventor__F5FDE6B2209DCD96")
+                entity.HasIndex(e => e.InventoryId, "UQ__Inventor__F5FDE6B2888D21A0")
                     .IsUnique();
 
                 entity.Property(e => e.LastUpdate).HasColumnType("datetime");
@@ -81,7 +81,7 @@ namespace Project0.Data
             {
                 entity.ToTable("InventoryLine", "Project0");
 
-                entity.HasIndex(e => e.InventoryLineId, "UQ__Inventor__BF6B50E0B091F2C1")
+                entity.HasIndex(e => e.InventoryLineId, "UQ__Inventor__BF6B50E0ABA5393E")
                     .IsUnique();
 
                 entity.Property(e => e.LineTotal).HasColumnType("numeric(10, 2)");
@@ -103,7 +103,7 @@ namespace Project0.Data
             {
                 entity.ToTable("Location", "Project0");
 
-                entity.HasIndex(e => e.LocationId, "UQ__Location__E7FEA49606D672CE")
+                entity.HasIndex(e => e.LocationId, "UQ__Location__E7FEA496715DFFBB")
                     .IsUnique();
 
                 entity.Property(e => e.Address).HasMaxLength(70);
@@ -111,14 +111,6 @@ namespace Project0.Data
                 entity.Property(e => e.City).HasMaxLength(40);
 
                 entity.Property(e => e.Country).HasMaxLength(40);
-
-                entity.Property(e => e.Email)
-                    .IsRequired()
-                    .HasMaxLength(60);
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(100);
 
                 entity.Property(e => e.Phone)
                     .IsRequired()
@@ -133,7 +125,7 @@ namespace Project0.Data
             {
                 entity.ToTable("Order", "Project0");
 
-                entity.HasIndex(e => e.OrderId, "UQ__Order__C3905BCE965EDB4D")
+                entity.HasIndex(e => e.OrderId, "UQ__Order__C3905BCE9F6D57B7")
                     .IsUnique();
 
                 entity.Property(e => e.OrderTime).HasColumnType("datetime");
@@ -157,7 +149,7 @@ namespace Project0.Data
             {
                 entity.ToTable("OrderLine", "Project0");
 
-                entity.HasIndex(e => e.OrderLineId, "UQ__OrderLin__29068A110C6BF252")
+                entity.HasIndex(e => e.OrderLineId, "UQ__OrderLin__29068A11E7B5812A")
                     .IsUnique();
 
                 entity.Property(e => e.LineTotal).HasColumnType("numeric(10, 2)");
@@ -179,7 +171,7 @@ namespace Project0.Data
             {
                 entity.ToTable("Product", "Project0");
 
-                entity.HasIndex(e => e.ProductId, "UQ__Product__B40CC6CC49AFBF32")
+                entity.HasIndex(e => e.ProductId, "UQ__Product__B40CC6CC10BAFF9D")
                     .IsUnique();
 
                 entity.Property(e => e.BestBy).HasColumnType("datetime");
