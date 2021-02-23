@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Project0.Data;
 
 using Project0.Customers;
+using Project0.Products;
 using Project0.Orders;
 
 namespace Project0.UI
@@ -30,17 +31,28 @@ namespace Project0.UI
             //    Console.WriteLine(c.FirstName + " " + c.LastName);
             //}
 
-            IEnumerable<IOrder> result = repository.GetOrders();
-            foreach (IOrder o in result)
+
+
+            IEnumerable<IProduct> products = repository.GetProducts();
+            foreach(IProduct p in products)
             {
-                Console.WriteLine(o.OrderId);
-                var lines = o.GetAllOrderLines();
-                foreach (var pair in lines)
-                {
-                    Console.WriteLine(pair.Value.Value);
-                }
-                Console.WriteLine();
+                Console.WriteLine(p.Name);
             }
+
+            //Dictionary<Products.Product, int> orderLines = new Dictionary<Products.Product, int>();
+            //IOrder order = new Project0.Orders.Order(1, 1, new DateTime(), orderLines);
+//
+            //IEnumerable<IOrder> orders = repository.GetOrders();
+            //foreach (IOrder o in orders)
+            //{
+            //    Console.WriteLine(o.OrderId + " " + o.CustomerId + " " + o.LocationId + " " + o.OrderTime + " " + o.OrderTotal);
+            //    var lines = o.GetAllOrderLines();
+            //    foreach (var pair in lines)
+            //    {
+            //        Console.WriteLine("    " + pair.Value.Value + " : " + pair.Value.Key.Name + " " + pair.Value.Key.BestBy + " " + pair.Value.Key.UnitPrice);
+            //    }
+            //    Console.WriteLine();
+            //}
         }
     }
 }

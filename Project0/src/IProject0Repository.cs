@@ -23,6 +23,14 @@ namespace Project0
 
 
         /// <summary>
+        /// Get all products with optional name search string and deferred execution.
+        /// </summary>
+        /// <returns>The collection of all customers</returns>
+        IEnumerable<IProduct> GetProducts(string search = null);
+
+
+
+        /// <summary>
         /// Get all orders with option customerId search and deferred execution.
         /// </summary>
         IEnumerable<IOrder> GetOrders(int? search = null);
@@ -30,7 +38,7 @@ namespace Project0
         /// <summary>
         /// Add new orders to store locations for customers.
         /// </summary>
-        void AddOrder(ICustomer customer, ILocation location);
+        void AddOrder(IOrder order);
 
 
 

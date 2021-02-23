@@ -49,7 +49,7 @@ namespace Project0.Data
         /// <summary>
         /// Add a new customer.
         /// </summary>
-        public void AddCustomer(Project0.Customers.ICustomer customer)
+        public void AddCustomer(ICustomer customer)
         {
             if (customer.CustomerId != 0)
             {
@@ -73,6 +73,26 @@ namespace Project0.Data
             };
             _dbContext.Add(entity);
         }
+
+
+
+        /// <summary>
+        /// Get all products with optional name search string and deferred execution.
+        /// </summary>
+        /// <returns>The collection of all customers</returns>
+        public IEnumerable<IProduct> GetProducts(string search = null)
+        {
+            IQueryable<Product> items = _dbContext.Products;
+            if (search != null)
+            {
+                items = items.Where(p => p.Name.Contains(search));
+            }
+            return items.Select(p => new Project0.Products.Product(
+                 p.Name, p.BestBy, p.UnitPrice, p.ProductId
+            ));
+        }
+
+
 
 
         /// <summary>
@@ -108,9 +128,24 @@ namespace Project0.Data
         /// <summary>
         /// Add new orders to store locations for customers.
         /// </summary>
-        public void AddOrder(ICustomer customer, ILocation location)
+        public void AddOrder(IOrder order)
         {
-            throw new NotImplementedException();
+            if (order.OrderId != 0)
+            {
+                s_logger.Warn($"Order to be added has an ID ({order.OrderId}) already: ignoring.");
+            }
+
+            s_logger.Info($"Adding Order");
+
+            // ID left at default 0
+            Order entity = new Order
+            {
+                CustomerId = order.CustomerId,
+                LocationId = order.LocationId,
+                OrderTime = order.OrderTime,
+                OrderTotal = order.OrderTotal
+            };
+            _dbContext.Add(entity);
         }
 
 
