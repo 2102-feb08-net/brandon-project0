@@ -33,7 +33,7 @@ namespace Project0.Data
             IQueryable<Customer> items = _dbContext.Customers;
             if (search != null)
             {
-                items.Where(c => c.FirstName.Contains(search) || c.LastName.Contains(search));
+                items = items.Where(c => (c.FirstName + " " + c.LastName).Contains(search));
             }
             return items.Select(c => new Project0.Customers.Customer(
                 c.CustomerId, c.FirstName, c.LastName, c.Address, c.City, c.State, c.Country, c.PostalCode, c.Phone, c.Email

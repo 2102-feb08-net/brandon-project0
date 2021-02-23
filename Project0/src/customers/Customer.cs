@@ -23,8 +23,9 @@ namespace Project0.Customers
 
         public string PostalCode { get; private set; }
 
-        public string Phone { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-        public string Email { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+        public string Phone { get; set; }
+        
+        public string Email { get; set; }
 
 
         public Customer(int customerId, string firstName, string lastName, string address, string city, string state, string country, string postalCode, string phone, string email)

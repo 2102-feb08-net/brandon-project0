@@ -16,7 +16,14 @@ namespace Project0
         IEnumerable<ICustomer> GetCustomers(string search = null);
 
 
-        //List<IOrder> GetCustomerOrderHistory(ICustomer customer);
-        //List<IOrder> GetLocationOrderHistory(ILocation location);
+        /// <summary>
+        /// Place orders to store locations for customers.
+        /// </summary>
+        void PlaceOrder(ICustomer customer, ILocation location);
+
+        /// <summary>
+        /// Add a new customer.
+        /// </summary>
+        void AddCustomer(string firstName, string lastName, string address, string city, string state, string country, string PostalCode, string phone, string email);
     }
 }
