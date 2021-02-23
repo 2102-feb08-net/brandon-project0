@@ -10,20 +10,33 @@ namespace Project0
     public interface IProject0Repository
     {
         /// <summary>
-        /// Get all customers with deferred execution.
+        /// Get all customers with optional name search string and deferred execution.
         /// </summary>
         /// <returns>The collection of all customers</returns>
         IEnumerable<ICustomer> GetCustomers(string search = null);
 
-
-        /// <summary>
-        /// Place orders to store locations for customers.
-        /// </summary>
-        void PlaceOrder(ICustomer customer, ILocation location);
-
         /// <summary>
         /// Add a new customer.
         /// </summary>
-        void AddCustomer(string firstName, string lastName, string address, string city, string state, string country, string PostalCode, string phone, string email);
+        void AddCustomer(ICustomer customer);
+
+
+
+        /// <summary>
+        /// Get all orders with option customerId search and deferred execution.
+        /// </summary>
+        IEnumerable<IOrder> GetOrders(int? search = null);
+
+        /// <summary>
+        /// Add new orders to store locations for customers.
+        /// </summary>
+        void AddOrder(ICustomer customer, ILocation location);
+
+
+
+        /// <summary>
+        /// Persist changes to the data source.
+        /// </summary>
+        void Save();
     }
 }

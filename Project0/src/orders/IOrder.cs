@@ -9,13 +9,13 @@ namespace Project0.Orders
 {
     public interface IOrder
     {
-        int OrderId { get; set; }
-        int CustomerId { get; set; }
-        int LocationId { get; set; }
-        DateTime OrderTime { get; set; }
-        decimal OrderTotal { get; set; }
+        int OrderId { get; }
+        int CustomerId { get; }
+        int LocationId { get; }
+        DateTime OrderTime { get; }
+        decimal OrderTotal { get; }
 
-        Dictionary<IProduct, int> GetAllOrderLines();
-        (IProduct, int) GetOrderLine(int lineId);
+        Dictionary<string, KeyValuePair<Product, int>> GetAllOrderLines();
+        KeyValuePair<Product, int> GetOrderLine(int lineId);
     }
 }

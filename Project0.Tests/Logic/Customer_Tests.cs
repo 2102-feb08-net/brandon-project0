@@ -6,18 +6,28 @@ namespace Project0.Tests.Logic
 {
     public class Customer_Tests
     {
-        [Fact]
-        public void GetOrderHistory_ReturnCollection()
+        [Theory]
+        [InlineData("", null)]
+        [InlineData(null, "")]
+        [InlineData(null, null)]
+        public void Constructor_NullFirstOrLast_ThrowException(string first, string last)
         {
             // arrange
-            var Customer = new Customer(1, "", "", "", "", "", "", "", "", "");
+            Customer customer;
 
             // act
-
+            bool exceptionThrown = false;
+            try 
+            {
+                customer = new Customer(first, last, "", "", "", "", "", "", "", 1);
+            }
+            catch
+            {
+                exceptionThrown = true;
+            }
 
             // assert
-
-
+            Assert.True(exceptionThrown);
         }
     }
 }

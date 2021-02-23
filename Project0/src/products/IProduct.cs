@@ -5,9 +5,9 @@ namespace Project0.Products
 {
     public interface IProduct
     {
-        int ProductId { get; set; }
-        string Name { get; set; }
-        DateTime? BestBy { get; set; }
+        int ProductId { get; }
+        string Name { get; }
+        DateTime? BestBy { get; }
         decimal UnitPrice { get; set; }
     }
 }

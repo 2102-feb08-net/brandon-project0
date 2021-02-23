@@ -1,5 +1,5 @@
 
-
+using System;
 using System.Collections.Generic;
 using Project0.Orders;
 
@@ -28,18 +28,18 @@ namespace Project0.Customers
         public string Email { get; set; }
 
 
-        public Customer(int customerId, string firstName, string lastName, string address, string city, string state, string country, string postalCode, string phone, string email)
+        public Customer(string firstName, string lastName, string address, string city, string state, string country, string postalCode, string phone, string email, int customerId = 0)
         {
             CustomerId = customerId;
-            FirstName = firstName;
-            LastName = lastName;
+            FirstName = firstName ?? throw new ArgumentException($"Customer FirstName must not be null");
+            LastName = lastName ?? throw new ArgumentException($"Customer LastName must not be null");
             Address = address;
             City = city;
             State = state;
             Country = country;
             PostalCode = postalCode;
             Phone = phone;
-            Email = email;
+            Email = email ?? throw new ArgumentException($"Customer LastName must not be null");
         }
 
 
