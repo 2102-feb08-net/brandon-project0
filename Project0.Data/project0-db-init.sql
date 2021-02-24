@@ -1,6 +1,13 @@
 
+
+
+DROP TABLE Project0.InventoryLine, Project0.Inventory, Project0.OrderLine, Project0.[Order], Project0.Product, Project0.Location, Project0.Customer
+DROP SCHEMA Project0
+GO
+
 CREATE SCHEMA Project0
 GO
+
 
 
 /*******************************************************************************

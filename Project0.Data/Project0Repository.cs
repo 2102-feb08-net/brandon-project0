@@ -96,43 +96,67 @@ namespace Project0.Data
 
 
         /// <summary>
-        /// Get all orders with option customerId search.
+        /// Get all orders with optional customerId search.
         /// </summary>
         public IEnumerable<IOrder> GetOrders(int? search = null)
         {
-            IQueryable<Order> orders = _dbContext.Orders;
+            IQueryable<Order> orders = _dbContext.Orders
+                .Include(o => o.OrderLines)
+                .ThenInclude(ol => ol.Product)
+                .AsNoTracking();
+            
             if (search != null)
             {
                 orders = orders.Where(o => o.CustomerId.Equals(search));
             }
-            Dictionary<Project0.Products.Product, int> orderLines = _dbContext.OrderLines
-                .Include(orderLines => orderLines.Product)
-                .Select(o => o).ToDictionary(k => new Project0.Products.Product(
-                    k.Product.Name,
-                    k.Product.BestBy,
-                    k.Product.UnitPrice,
-                    k.Product.ProductId
-                ), 
-                v => v.Quantity);
-            return orders.Select(o => new Project0.Orders.Order(
-                    o.CustomerId, 
-                    o.LocationId, 
-                    o.OrderTime,
-                    orderLines,
-                    o.OrderId
-                )
-            );
+            //IQueryable<OrderLine> orderLines = orders
+            //    .Select(o => o.OrderLines).Select(ol => ol.).ToDictionary(ol => ol.ProductId, ol => ol.Quantity);
+                //.Include(orderLines => orderLines.Product)
+                //.Select(o => o).ToDictionary(k => (IProduct)new Project0.Products.Product(
+                //    k.Product.Name,
+                //    k.Product.BestBy,
+                //    k.Product.UnitPrice,
+                //    k.Product.ProductId
+                //), 
+                //v => v.Quantity);
+            return orders.Select(o => new Project0.Orders.Order
+            {
+                OrderId = o.OrderId,
+                CustomerId = o.CustomerId,
+                LocationId = o.LocationId,
+                OrderTime = o.OrderTime,
+                OrderTotal = o.OrderTotal,
+                OrderLines = o.OrderLines.Select(ol => new Project0.Orders.OrderLine
+                {
+                    OrderLineId = ol.OrderLineId,
+                    OrderId = ol.OrderId,
+                    Product = new Project0.Products.Product(
+                        ol.Product.Name,
+                        ol.Product.BestBy,
+                        ol.Product.UnitPrice,
+                        ol.Product.ProductId
+                    ),
+                    Quantity = ol.Quantity
+                }).ToList()
+            });
         }
 
 
         /// <summary>
-        /// Add new orders to store locations for customers.
+        /// Add and save new orders to store locations for customers.
         /// </summary>
         public void AddOrder(IOrder order)
         {
             if (order.OrderId != 0)
             {
                 s_logger.Warn($"Order to be added has an ID ({order.OrderId}) already: ignoring.");
+            }
+            foreach (Orders.OrderLine ol in order.OrderLines)
+            {
+                if (ol.OrderLineId != 0)
+                {
+                    s_logger.Warn($"OrderLine to be added has an ID ({ol.OrderLineId}) already: ignoring.");
+                }
             }
 
             s_logger.Info($"Adding Order");
@@ -146,6 +170,20 @@ namespace Project0.Data
                 OrderTotal = order.OrderTotal
             };
             _dbContext.Add(entity);
+            _dbContext.SaveChanges();
+
+            foreach (Orders.OrderLine ol in order.OrderLines)
+            {
+                OrderLine entity2 = new OrderLine
+                {
+                    OrderId = entity.OrderId,
+                    ProductId = ol.Product.ProductId,
+                    Quantity = ol.Quantity,
+                    LineTotal = ol.Quantity * ol.Product.UnitPrice
+                };
+                _dbContext.Add(entity2);
+            }
+            _dbContext.SaveChanges();
         }
 
 

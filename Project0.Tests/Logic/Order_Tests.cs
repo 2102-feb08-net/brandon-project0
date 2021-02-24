@@ -24,7 +24,14 @@ namespace Project0.Tests.Logic
             bool exceptionThrown = false;
             try 
             {
-                order = new Order(customerId, 1, new DateTime(), new Dictionary<Product, int>());
+                order = new Order
+                {
+                    CustomerId = customerId,
+                    LocationId = 1,
+                    OrderTime = new DateTime(),
+                    OrderTotal = 1.00M,
+                    OrderLines = new List<OrderLine>()
+                };
             }
             catch
             {
@@ -47,7 +54,14 @@ namespace Project0.Tests.Logic
             bool exceptionThrown = false;
             try 
             {
-                order = new Order(1, locationId, new DateTime(), new Dictionary<Product, int>());
+                order = new Order
+                {
+                    CustomerId = 1,
+                    LocationId = locationId,
+                    OrderTime = new DateTime(),
+                    OrderTotal = 1.00M,
+                    OrderLines = new List<OrderLine>()
+                };
             }
             catch
             {
